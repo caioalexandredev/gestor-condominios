@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 type Props = {
     children: ReactNode;
-    [x: string]: any;
+    [x: string]: ReactNode;
 };
 
 export default function AlertWarning({

@@ -1,4 +1,3 @@
-import { keyValueOption } from "@/components/field/Select";
 import { ColumnDef } from "@tanstack/react-table";
 
 export interface IOcorrencia {

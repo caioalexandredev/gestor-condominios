@@ -2,7 +2,7 @@
 
 import ButtonPrimary from "@/components/button/ButtonPrimary";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAdd, faEdit, faEye, faFilter, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faAdd, faEdit, faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { columns, dataTest, IOcorrencia } from "@/model/IOcorrencia";
 import { useState } from "react";
 import { IModal } from "@/model/IModal";
@@ -11,13 +11,10 @@ import ButtonSuccess from "@/components/button/ButtonSuccess";
 import ButtonDanger from "@/components/button/ButtonDanger";
 import Delete from "@/components/dialog/Delete";
 import H1 from "@/components/core/title/H1";
-import Card from "@/components/card/Card";
-import H4 from "@/components/core/title/H4";
-import Fields from "@/components/field/Fields";
 import Text from "@/components/field/Text";
-import Select from "@/components/field/Select";
 import { DataTable } from "@/components/table/DataTable";
 import { ColumnDef } from "@tanstack/react-table";
+import Filter from "@/components/list/Filter";
 
 export default function Page() {
     const [stateDialogDelete, setStateDialogDelete] = useState<IModal>({
@@ -63,19 +60,10 @@ export default function Page() {
             </Link>
         </div>
 
-        <Card>
-            <H4 className="text-slate-700">Filtros</H4>
-            <hr className="mb-3" />
-            <form>
-                <Fields>
-                    <Text label="Solicitante" id="solicitante" />
-                    <Text label="Assunto" id="assunto" />
-                </Fields>
-                <ButtonPrimary isIcon={false}>
-                    <FontAwesomeIcon icon={faFilter} /> Filtrar
-                </ButtonPrimary>
-            </form>
-        </Card>
+        <Filter>
+            <Text label="Solicitante" id="solicitante" />
+            <Text label="Assunto" id="assunto" />
+        </Filter>
 
         <DataTable columns={columnsDataTable} data={dataTest} />
     </>);

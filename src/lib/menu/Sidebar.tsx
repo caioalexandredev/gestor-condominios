@@ -72,7 +72,7 @@ export default function Sidebar() {
                     text: "Contas a Receber"
                 },
                 {
-                    link: "/financeiro/cobranca",
+                    link: "/financeiro/gestao",
                     icon: faFileInvoiceDollar,
                     text: "Gestão de Cobrança"
                 },
@@ -122,7 +122,9 @@ export default function Sidebar() {
                             {menuList.map((menu: MenuGroup, key: number) => (
                                 <CommandGroup key={key} heading={!isMinimized ? menu.group : ' '}>
                                     {menu.items.map((option: MenuItem, optionKey: number) => {
-                                        const isActive = pathname === option.link;
+                                        const isActive = option.link === '/' 
+                                        ? pathname === option.link
+                                        : pathname.includes(option.link);
                                         return (
                                             <Link href={option.link} key={optionKey}>
                                                 <CommandItem

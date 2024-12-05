@@ -2,7 +2,7 @@
 
 import ButtonPrimary from "@/components/button/ButtonPrimary";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAdd, faEdit, faEye, faFilter, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faAdd, faEdit, faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { columns, dataTest, IGestaoVeiculo, tipoSelect } from "@/model/IGestaoVeiculo";
 import { useState } from "react";
 import { IModal } from "@/model/IModal";
@@ -11,13 +11,11 @@ import ButtonSuccess from "@/components/button/ButtonSuccess";
 import ButtonDanger from "@/components/button/ButtonDanger";
 import Delete from "@/components/dialog/Delete";
 import H1 from "@/components/core/title/H1";
-import Card from "@/components/card/Card";
-import H4 from "@/components/core/title/H4";
-import Fields from "@/components/field/Fields";
 import Text from "@/components/field/Text";
 import Select from "@/components/field/Select";
 import { DataTable } from "@/components/table/DataTable";
 import { ColumnDef } from "@tanstack/react-table";
+import Filter from "@/components/list/Filter";
 
 export default function Page() {
     const [stateDialogDelete, setStateDialogDelete] = useState<IModal>({
@@ -40,22 +38,21 @@ export default function Page() {
                         <FontAwesomeIcon icon={faEdit} />
                     </ButtonPrimary>
                 </Link>
-                <ButtonDanger onClick={ open } isIcon={true}>
+                <ButtonDanger onClick={open} isIcon={true}>
                     <FontAwesomeIcon icon={faTrash} />
                 </ButtonDanger>
             </div >)
         }
     }]
 
-    function open(): void
-    {
-        setStateDialogDelete((prevValues: IModal) => { return {...prevValues, open: true};});
+    function open(): void {
+        setStateDialogDelete((prevValues: IModal) => { return { ...prevValues, open: true }; });
     }
 
     return (<>
         <Delete state={stateDialogDelete} setState={setStateDialogDelete} />
-        
-        <H1>Gestão de Propriedades</H1>
+
+        <H1>Gestão de Veículos</H1>
 
         <div className={"flex justify-end mb-3"}>
             <Link href="/gestao/propriedade/novo">
@@ -63,21 +60,12 @@ export default function Page() {
             </Link>
         </div>
 
-        <Card>
-            <H4 className="text-slate-700">Filtros</H4>
-            <hr className="mb-3" />
-            <form>
-                <Fields>
-                    <Text label="Nome Completo" id="nome_completo" />
-                    <Select label="Tipo" id="tipo" data={tipoSelect} />
-                    <Text label="Placa" id="placa" />
-                    <Text label="Modelo" id="modelo" />
-                </Fields>
-                <ButtonPrimary isIcon={false}>
-                    <FontAwesomeIcon icon={faFilter} /> Filtrar
-                </ButtonPrimary>
-            </form>
-        </Card>
+        <Filter>
+            <Text label="Nome Completo" id="nome_completo" />
+            <Select label="Tipo" id="tipo" data={tipoSelect} />
+            <Text label="Placa" id="placa" />
+            <Text label="Modelo" id="modelo" />
+        </Filter>
 
         <DataTable columns={columnsDataTable} data={dataTest} />
     </>);

@@ -9,8 +9,10 @@ export default function Card({
     children,
     ...rest
 }: Props) {
+    const className = "p-3 bg-white border-slate-200 border rounded mb-6 drop-shadow " + rest.className;
+
     return (
-        <div {...rest} className="p-3 bg-white border-slate-200 border rounded mb-6 drop-shadow">
+        <div {...rest} className={className}>
             {children}
         </div>
     );

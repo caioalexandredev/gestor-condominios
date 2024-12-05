@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 type Props = {
     children: ReactNode;
     isIcon?: boolean;
-    [x: string]: any;
+    [x: string]: ReactNode;
 };
 
 export default function ButtonWarning({ children, isIcon = false, ...rest }: Props) {

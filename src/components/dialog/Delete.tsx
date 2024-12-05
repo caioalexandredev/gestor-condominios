@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ButtonDanger from "../button/ButtonDanger";
 import ButtonSecondary from "../button/ButtonSecondary";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "../ui/dialog";
 import { faBackspace, faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
 import { defaultValues, IModal } from "@/model/IModal";
 
