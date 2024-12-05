@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 type Props = {
     label: string;
-    [x: string]: React.FC<React.InputHTMLAttributes<HTMLInputElement>> | string;
+    [x: string]: React.FC<React.InputHTMLAttributes<HTMLInputElement>>;
 };
 
 export default function Text({

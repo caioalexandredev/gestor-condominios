@@ -15,7 +15,7 @@ export default function Page() {
             <hr className="mb-3" />
             <Row>
                 <Column size={6}>
-                    <Text label="Nome" name="nome" id="nome" minLength="150" required  />
+                    <Text label="Nome" name="nome" id="nome" minLength="150"   />
                 </Column>
                 <Column size={6}>
                     <Text label="Sobrenome" name="sobrenome" id="sobrenome" minLength="150" requiredsW/>
