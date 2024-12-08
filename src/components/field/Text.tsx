@@ -1,14 +1,17 @@
-import { ReactNode } from "react";
-
 type Props = {
-    label: string;
-    [x: string]: React.FC<React.InputHTMLAttributes<HTMLInputElement>>;
+    label: any;
+    errors?: any
+    [x: string]: any;
 };
 
 export default function Text({
     label,
+    errors,
     ...rest
 }: Props) {
+    const errorMessage = errors?.[rest.name]?.message;
+    const isInvalid = errors?.[rest.name];
+    
     return (
         <div>
             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -17,8 +20,10 @@ export default function Text({
             <input
                 type="text"
                 {...rest}
-                className="bg-gray-50 h-11 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                aria-invalid={errors?.[rest.name] ? "true" : "false"}
+                className={`bg-gray-50 h-11 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 ${isInvalid ? 'border-red-500' : 'border-gray-300'}`}
             />
+            <small className="text-red-500">{errorMessage}</small>
         </div>
     )
 }

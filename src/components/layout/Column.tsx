@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 type Props = {
   children: ReactNode;
-  size: number;
+  size?: number;
   className?: string;
   [x: string]: ReactNode | unknown;
 };
