@@ -10,7 +10,7 @@ export const dataTest = [
         id: "654ce96i",
         proprietario: "Ana Clara Martins",
         placa: "HQC-8431",
-        tipo: "Carro",
+        categoria: "Carro",
         modelo: "MINI STAR CE 1.0 8V 53cv (Pick-Up)",
         inclusao: "15/10/2024 14:08:33"
     },
@@ -18,7 +18,7 @@ export const dataTest = [
         id: "892fgh34",
         proprietario: "Carlos Eduardo Silva",
         placa: "ABC-1234",
-        tipo: "Carro",
+        categoria: "Carro",
         modelo: "TOYOTA COROLLA 2.0 16V Flex",
         inclusao: "12/10/2024 10:15:00"
     },
@@ -26,7 +26,7 @@ export const dataTest = [
         id: "128hg834",
         proprietario: "Juliana Alves",
         placa: "XYZ-9876",
-        tipo: "Moto",
+        categoria: "Moto",
         modelo: "HONDA CG 160 START",
         inclusao: "10/10/2024 08:20:45"
     },
@@ -34,7 +34,7 @@ export const dataTest = [
         id: "673bdk29",
         proprietario: "Lucas Pereira",
         placa: "JKL-5678",
-        tipo: "Carro",
+        categoria: "Carro",
         modelo: "FIAT TORO FREEDOM 1.8 Flex",
         inclusao: "08/10/2024 16:30:15"
     },
@@ -42,7 +42,7 @@ export const dataTest = [
         id: "453qw764",
         proprietario: "Mariana Castro",
         placa: "GHQ-3456",
-        tipo: "Carro",
+        categoria: "Carro",
         modelo: "FORD KA SE 1.5 12V Flex",
         inclusao: "05/10/2024 14:50:25"
     },
@@ -50,7 +50,7 @@ export const dataTest = [
         id: "875ghd32",
         proprietario: "Pedro Henrique Lima",
         placa: "MNO-4321",
-        tipo: "Moto",
+        categoria: "Moto",
         modelo: "YAMAHA FAZER 250",
         inclusao: "03/10/2024 18:25:10"
     },
@@ -58,7 +58,7 @@ export const dataTest = [
         id: "983jd920",
         proprietario: "Renata Oliveira",
         placa: "PQR-8901",
-        tipo: "Carro",
+        categoria: "Carro",
         modelo: "HYUNDAI HB20 1.0 Vision",
         inclusao: "01/10/2024 09:45:00"
     },
@@ -66,7 +66,7 @@ export const dataTest = [
         id: "762plm58",
         proprietario: "Felipe Santos",
         placa: "STU-4567",
-        tipo: "Carro",
+        categoria: "Carro",
         modelo: "CHEVROLET ONIX 1.0 Turbo",
         inclusao: "28/09/2024 11:00:00"
     }
@@ -93,8 +93,8 @@ export const columns: ColumnDef<IGestaoVeiculo>[] = [
         header: "Placa",
     },
     {
-        accessorKey: "tipo",
-        header: "Tipo",
+        accessorKey: "categoria",
+        header: "Categoria",
     },
     {
         accessorKey: "modelo",

@@ -1,12 +1,10 @@
-import { SelectHTMLAttributes } from "react";
-
 export type keyValueOption = { key: number | string, value: string };
 
 type Props = {
     label?: string;
-    errors?: any
+    errors?: any | unknown
     data?: keyValueOption[];
-    [x: string]: any;
+    [x: string]: any | unknown;
 };
 
 export default function Select({
@@ -20,12 +18,12 @@ export default function Select({
 
     return (
         <div>
-            <label className={`block ${label ? "mb-2" : ""} text-sm font-medium text-gray-900 dark:text-white`}>
+            <label className={`block ${label ? "mb-2" : ""} text-sm font-bold text-gray-900 dark:text-white`}>
                 {label}
             </label>
             <select 
-                {...rest} 
-                defaultValue="" 
+                defaultValue=""
+                {...rest}
                 aria-invalid={errors?.[rest.name] ? "true" : "false"}
                 className={`bg-gray-50 h-11 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 ${isInvalid ? 'border-red-500' : 'border-gray-300'}`}
             >

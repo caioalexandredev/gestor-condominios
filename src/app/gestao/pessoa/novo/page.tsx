@@ -13,10 +13,13 @@ import { createValidationRule } from "@/lib/helper/validationHelpers";
 import { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import IMask from 'imask';
+import Email from "@/components/field/Email";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSave } from "@fortawesome/free-solid-svg-icons";
 
 export default function Page() {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = (data: any) => console.log(data);
+    const onSubmit = (data: any | unknown) => console.log(data);
 
     const inputCPF = useRef(null);
 
@@ -38,7 +41,7 @@ export default function Page() {
                 <Row>
                     <Column size={6}>
                         <Text
-                            label="Nome"
+                            label="Nome*"
                             id="nome"
                             {...register("nome", {
                                 ...createValidationRule('Nome', "required", true)
@@ -49,7 +52,7 @@ export default function Page() {
                     </Column>
                     <Column size={6}>
                         <Text
-                            label="Sobrenome"
+                            label="Sobrenome*"
                             id="sobrenome"
                             {...register("sobrenome", {
                                 ...createValidationRule('Sobrenome', "required", true)
@@ -60,7 +63,7 @@ export default function Page() {
                     </Column>
                     <Column size={6}>
                         <Date
-                            label="Data de Nascimento"
+                            label="Data de Nascimento*"
                             id="dt_nascimento"
                             {...register("dt_nascimento", {
                                 ...createValidationRule('Data de Nascimento', "required", true),
@@ -74,7 +77,7 @@ export default function Page() {
                     <Column>
                         <Select
                             id="sexo"
-                            label="Sexo"
+                            label="Sexo*"
                             data={[
                                 { key: "F", value: "Feminino" },
                                 { key: "M", value: "Masculino" },
@@ -89,7 +92,7 @@ export default function Page() {
                     <Column>
                         <Text
                             id="cpf"
-                            label="CPF"
+                            label="CPF*"
                             minLength="14"
                             {...register("cpf", {
                                 ...createValidationRule('CPF', "required", true)
@@ -100,7 +103,7 @@ export default function Page() {
                     <Column>
                         <Text
                             id="naturalidade"
-                            label="Naturalidade"
+                            label="Naturalidade*"
                             {...register("naturalidade", {
                                 ...createValidationRule('Naturalidade', "required", true),
                                 ...createValidationRule('Naturalidade', "minLength", 100)
@@ -113,7 +116,7 @@ export default function Page() {
                     <Column>
                         <Text
                             id="rg"
-                            label="RG"
+                            label="RG*"
                             {...register("rg", {
                                 ...createValidationRule('RG', "required", true),
                                 ...createValidationRule('RG', "minLength", 50)
@@ -124,7 +127,7 @@ export default function Page() {
                     <Column>
                         <Date
                             id="dt_emissao"
-                            label="Data de Emissão"
+                            label="Data de Emissão*"
                             {...register("dt_emissao", {
                                 ...createValidationRule('Data de Emissão', "required", true),
                                 ...createValidationRule('Data de Emissão', "min", '1900-01-01')
@@ -135,7 +138,7 @@ export default function Page() {
                     <Column>
                         <Text
                             id="orgao_emissao"
-                            label="Órgão de Emissão"
+                            label="Órgão de Emissão*"
                             {...register("orgao_emissao", {
                                 ...createValidationRule('Órgão de Emissão', "required", true),
                                 ...createValidationRule('Órgão de Emissão', "minLength", 50)
@@ -149,16 +152,124 @@ export default function Page() {
             <Card>
                 <H4 className="text-slate-700">Contatos</H4>
                 <hr className="mb-3" />
+                <Row>
+                    <Column>
+                        <Text
+                            id="telefone"
+                            label="Telefone"
+                            errors={errors}
+                        />
+                    </Column>
+                    <Column>
+                        <Text
+                            id="celular"
+                            label="Celular*"
+                            {...register("celular", {
+                                ...createValidationRule('Celular', "required", true)
+                            })}
+                            errors={errors}
+                        />
+                    </Column>
+                    <Column>
+                        <Email
+                            id="email"
+                            label="Email*"
+                            {...register("Email", {
+                                ...createValidationRule('Email', "required", true)
+                            })}
+                            errors={errors}
+                        />
+                    </Column>
+                </Row>
             </Card>
 
             <Card>
                 <H4 className="text-slate-700">Endereço</H4>
                 <hr className="mb-3" />
+                <Row>
+                    <Column>
+                        <Text
+                            id="cep"
+                            label="CEP*"
+                            {...register("cep", {
+                                ...createValidationRule('CEP', "required", true)
+                            })}
+                            errors={errors}
+                        />
+                    </Column>
+                    <Column>
+                        <Select
+                            id="uf"
+                            label="UF*"
+                            {...register("uf", {
+                                ...createValidationRule('UF', "required", true)
+                            })}
+                            errors={errors}
+                        />
+                    </Column>
+                    <Column>
+                        <Select
+                            id="cidade"
+                            label="Cidade*"
+                            {...register("cidade", {
+                                ...createValidationRule('Cidade', "required", true)
+                            })}
+                            errors={errors}
+                        />
+                    </Column>
+                </Row>
+                <Row>
+                    <Column>
+                        <Text
+                            id="logradouro"
+                            label="Logradouro*"
+                            {...register("logradouro", {
+                                ...createValidationRule('Logradouro', "required", true)
+                            })}
+                            errors={errors}
+                        />
+                    </Column>
+                    <Column>
+                        <Text
+                            id="bairro"
+                            label="Bairro*"
+                            {...register("bairro", {
+                                ...createValidationRule('Bairro', "required", true)
+                            })}
+                            errors={errors}
+                        />
+                    </Column>
+                    <Column>
+                        <Text
+                            id="numero"
+                            label="Número*"
+                            {...register("numero", {
+                                ...createValidationRule('Número', "required", true)
+                            })}
+                            errors={errors}
+                        />
+                    </Column>
+                </Row>
+                <Row>
+                    <Column size={6}>
+                        <Text
+                            id="complemento"
+                            label="Complemento*"
+                            {...register("complemento", {
+                                ...createValidationRule('Complemento', "required", true)
+                            })}
+                            errors={errors}
+                        />
+                    </Column>
+                </Row>
             </Card>
 
-            <ButtonPrimary>
-                Salvar
-            </ButtonPrimary>
+            <div className="flex justify-end">
+                <ButtonPrimary>
+                    <FontAwesomeIcon icon={faSave} /> Salvar
+                </ButtonPrimary>
+            </div>
+            
         </form>
     </>)
 }

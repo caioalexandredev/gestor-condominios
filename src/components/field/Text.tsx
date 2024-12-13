@@ -1,7 +1,7 @@
 type Props = {
-    label: any;
-    errors?: any
-    [x: string]: any;
+    label: any | unknown;
+    errors?: any | unknown;
+    [x: string]: any | unknown;
 };
 
 export default function Text({
@@ -14,7 +14,7 @@ export default function Text({
     
     return (
         <div>
-            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            <label className="block mb-2 text-sm text-gray-900 dark:text-white font-bold">
                 {label}
             </label>
             <input

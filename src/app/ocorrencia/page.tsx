@@ -27,12 +27,12 @@ export default function Page() {
         header: "Ações",
         cell: ({ row }: { row: { id: string; original: IOcorrencia } }) => {
             return (<div className="inline-flex gap-x-2">
-                <Link href={`gestao/pessoa/${row.original.id}`}>
+                <Link href={`ocorrencia/${row.original.id}`}>
                     <ButtonSuccess isIcon={true}>
                         <FontAwesomeIcon icon={faEye} />
                     </ButtonSuccess>
                 </Link>
-                <Link href={`gestao/pessoa/edicao/${row.original.id}`}>
+                <Link href={`ocorrencia/edicao/${row.original.id}`}>
                     <ButtonPrimary isIcon={true}>
                         <FontAwesomeIcon icon={faEdit} />
                     </ButtonPrimary>
@@ -55,7 +55,7 @@ export default function Page() {
         <H1>Livro de Ocorrências</H1>
 
         <div className={"flex justify-end mb-3"}>
-            <Link href="/gestao/pessoa/novo">
+            <Link href="/ocorrencia/novo">
                 <ButtonPrimary><FontAwesomeIcon icon={faAdd} />Cadastrar</ButtonPrimary>
             </Link>
         </div>

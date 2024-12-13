@@ -5,7 +5,7 @@ const formatDateToBR = (date: string | Date) => {
     return formatInTimeZone(dateLocal, 'Europe/Paris', 'dd/MM/yyyy') 
 };
 
-export const createValidationRule = (field: string, type: 'minLength' | 'maxLength' | 'required' | 'pattern' | 'email' | 'min' | 'max' | 'custom', value: number | boolean | RegExp | string | undefined): any => {
+export const createValidationRule = (field: string, type: 'minLength' | 'maxLength' | 'required' | 'pattern' | 'email' | 'min' | 'max' | 'custom', value: number | boolean | RegExp | string | undefined): any | unknown => {
     const validationMessages = {
         required: `Este campo ${field} é obrigatório`,
         minLength: (min: number) => `O campo ${field} deve ter pelo menos ${min} caracteres.`,
@@ -52,7 +52,7 @@ export const createValidationRule = (field: string, type: 'minLength' | 'maxLeng
     }
 
     if (type === 'custom' && typeof value === 'string') {
-        return { validate: (valueToValidate: any) => valueToValidate ? true : validationMessages.custom(value) };
+        return { validate: (valueToValidate: any | unknown) => valueToValidate ? true : validationMessages.custom(value) };
     }
 
     return {};

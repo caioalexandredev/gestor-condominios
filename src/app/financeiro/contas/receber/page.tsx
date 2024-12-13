@@ -29,12 +29,12 @@ export default function Page() {
         header: "Ações",
         cell: ({ row }: { row: { id: string; original: IContasReceber } }) => {
             return (<div className="inline-flex gap-x-2">
-                <Link href={`financeiro/contas/pagar/${row.original.id}`}>
+                <Link href={`financeiro/contas/receber/${row.original.id}`}>
                     <ButtonSuccess isIcon={true}>
                         <FontAwesomeIcon icon={faEye} />
                     </ButtonSuccess>
                 </Link>
-                <Link href={`financeiro/contas/pagar/edicao/${row.original.id}`}>
+                <Link href={`financeiro/contas/receber/edicao/${row.original.id}`}>
                     <ButtonPrimary isIcon={true}>
                         <FontAwesomeIcon icon={faEdit} />
                     </ButtonPrimary>
@@ -56,7 +56,7 @@ export default function Page() {
         <H1>Contas a Pagar</H1>
 
         <div className={"flex justify-end mb-3"}>
-            <Link href="/financeiro/contas/pagar/novo">
+            <Link href="/financeiro/contas/receber/novo">
                 <ButtonPrimary><FontAwesomeIcon icon={faAdd} />Cadastrar</ButtonPrimary>
             </Link>
         </div>

@@ -55,14 +55,14 @@ export default function Page() {
         <H1>Gestão de Veículos</H1>
 
         <div className={"flex justify-end mb-3"}>
-            <Link href="/gestao/propriedade/novo">
+            <Link href="/gestao/veiculo/novo">
                 <ButtonPrimary><FontAwesomeIcon icon={faAdd} />Cadastrar</ButtonPrimary>
             </Link>
         </div>
 
         <Filter>
             <Text label="Nome Completo" id="nome_completo" />
-            <Select label="Tipo" id="tipo" data={tipoSelect} />
+            <Select label="Categoria" id="categoria" data={tipoSelect} />
             <Text label="Placa" id="placa" />
             <Text label="Modelo" id="modelo" />
         </Filter>

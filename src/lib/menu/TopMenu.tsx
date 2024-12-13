@@ -8,7 +8,7 @@ export default function TopMenu() {
     return (
         <div className="flex items-center justify-end w-full px-4 h-16 bg-sky-600 text-white shadow-md">
             <nav className="flex gap-4">
-                <Select data={[
+                <Select defaultValue="1" data={[
                     { key: 1, value: "Administrador" },
                     { key: 2, value: "Proprietário" },
                     { key: 3, value: "Inquilino" }
