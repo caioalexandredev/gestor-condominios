@@ -3,6 +3,8 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Sidebar from "@/lib/menu/Sidebar";
 import TopMenu from "@/lib/menu/TopMenu";
+import { cookies } from "next/headers";
+import { ToastContainer } from "react-toastify";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -23,25 +25,28 @@ export const metadata: Metadata = {
   }
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-    
-    return (
-        <html lang="en">
-            <body className={`flex flex-col bg-slate-50 min-h-screen ${geistSans.variable} ${geistMono.variable}`}>
-                <div className="flex flex-row w-full h-full">
-                    <Sidebar />
-                    <main className="flex-1 h-full">
-                        <TopMenu />
-                        <div className="p-4">
-                            {children}
-                        </div>
-                    </main>
-                </div>
-            </body>
-        </html>
+  const cookie = await cookies();
+  const token = cookie.get("token")?.value;
+
+  return (
+    <html lang="en">
+      <body className={`flex flex-col bg-slate-50 min-h-screen ${geistSans.variable} ${geistMono.variable}`}>
+        <div className="flex flex-row w-full h-full">
+          <Sidebar isValidUser={token ? true : false} />
+          <main className="flex-1 h-full">
+            <TopMenu isValidUser={token ? true : false} />
+            <ToastContainer className="mt-10 screen-mobile:mt-0" />
+            <div className="p-4">
+              {children}
+            </div>
+          </main>
+        </div>
+      </body>
+    </html>
   );
 }

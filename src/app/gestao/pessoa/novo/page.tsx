@@ -10,26 +10,87 @@ import Text from "@/components/field/Text";
 import Column from "@/components/layout/Column";
 import Row from "@/components/layout/Row";
 import { createValidationRule } from "@/lib/helper/validationHelpers";
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import IMask from 'imask';
 import Email from "@/components/field/Email";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave } from "@fortawesome/free-solid-svg-icons";
+import { notifySucess, notifyWarning } from "@/lib/components/Alert";
+import { useRouter } from "next/navigation";
+import { loadEstado } from "@/domain/estado/data/fetchs";
+import { loadCidade } from "@/domain/cidade/data/fetchs";
 
 export default function Page() {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = (data: any | unknown) => console.log(data);
+    const router = useRouter();
+    const [isLoading, setIsLoading] = useState(false);
+    const [isLoadingPage, setIsLoadingPage] = useState(true);
+    const [select, setSelect] = useState({
+        estado: [],
+        cidade: []
+    });
 
-    const inputCPF = useRef(null);
+    const [uf, setUf] = useState("");
 
     useEffect(() => {
-        if (inputCPF.current) {
-            IMask(inputCPF.current, {
-                mask: '000.000.000-00',
+        setIsLoadingPage(true);
+    
+        const promises = [
+            loadEstado()
+        ];
+    
+        Promise.all(promises)
+            .then(([estado]) => {
+                setSelect({
+                    ...select,
+                    estado: estado
+                })
+            })
+            .finally(() => {
+                setIsLoadingPage(false);
             });
-        }
     }, []);
+
+    useEffect(() => {
+        const promises = [
+            loadCidade(uf)
+        ];
+    
+        Promise.all(promises)
+            .then(([cidade]) => {
+                setSelect({
+                    ...select,
+                    cidade: cidade
+                })
+            })
+            .finally(() => {
+                setIsLoadingPage(false);
+            });
+    }, [uf]);
+
+    const onSubmit = async (data: any | unknown) => {
+        try {
+            setIsLoading(true);
+            const response = await fetch("/api/pessoa", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (response.ok) {
+                notifySucess("Registro salvo com sucesso");
+                router.push("/gestao/pessoa");
+            } else {
+                notifyWarning("Falha ao salvar o registro");
+            }
+        } catch (error) {
+            notifyWarning("Falha ao salvar o registro: " + error);
+        } finally {
+            setIsLoading(false);
+        }
+    }
 
     return (<>
         <H1>Cadastrar Pessoa</H1>
@@ -55,9 +116,9 @@ export default function Page() {
                             label="Sobrenome*"
                             id="sobrenome"
                             {...register("sobrenome", {
-                                ...createValidationRule('Sobrenome', "required", true)
+                                ...createValidationRule('Sobrenome', "required", true),
+                                ...createValidationRule('Naturalidade', "maxLength", 150)
                             })}
-                            maxLength="150"
                             errors={errors}
                         />
                     </Column>
@@ -93,9 +154,10 @@ export default function Page() {
                         <Text
                             id="cpf"
                             label="CPF*"
-                            minLength="14"
                             {...register("cpf", {
-                                ...createValidationRule('CPF', "required", true)
+                                ...createValidationRule('CPF', "required", true),
+                                ...createValidationRule('Naturalidade', "minLength", 14),
+                                ...createValidationRule('Naturalidade', "maxLength", 14)
                             })}
                             errors={errors}
                         />
@@ -106,7 +168,7 @@ export default function Page() {
                             label="Naturalidade*"
                             {...register("naturalidade", {
                                 ...createValidationRule('Naturalidade', "required", true),
-                                ...createValidationRule('Naturalidade', "minLength", 100)
+                                ...createValidationRule('Naturalidade', "maxLength", 100)
                             })}
                             errors={errors}
                         />
@@ -119,7 +181,7 @@ export default function Page() {
                             label="RG*"
                             {...register("rg", {
                                 ...createValidationRule('RG', "required", true),
-                                ...createValidationRule('RG', "minLength", 50)
+                                ...createValidationRule('RG', "maxLength", 50)
                             })}
                             errors={errors}
                         />
@@ -141,7 +203,7 @@ export default function Page() {
                             label="Órgão de Emissão*"
                             {...register("orgao_emissao", {
                                 ...createValidationRule('Órgão de Emissão', "required", true),
-                                ...createValidationRule('Órgão de Emissão', "minLength", 50)
+                                ...createValidationRule('Órgão de Emissão', "maxLength", 50)
                             })}
                             errors={errors}
                         />
@@ -204,6 +266,8 @@ export default function Page() {
                             {...register("uf", {
                                 ...createValidationRule('UF', "required", true)
                             })}
+                            data={select.estado}
+                            onChange={(e: any)=>{setUf(e.target.value);}}
                             errors={errors}
                         />
                     </Column>
@@ -214,6 +278,7 @@ export default function Page() {
                             {...register("cidade", {
                                 ...createValidationRule('Cidade', "required", true)
                             })}
+                            data={select.cidade}
                             errors={errors}
                         />
                     </Column>
@@ -265,11 +330,10 @@ export default function Page() {
             </Card>
 
             <div className="flex justify-end">
-                <ButtonPrimary>
-                    <FontAwesomeIcon icon={faSave} /> Salvar
+                <ButtonPrimary disabled={isLoading}>
+                    <FontAwesomeIcon icon={faSave} /> {isLoading ? ("Salvando...") : ("Salvar")}
                 </ButtonPrimary>
             </div>
-            
         </form>
     </>)
 }

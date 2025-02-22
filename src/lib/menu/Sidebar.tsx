@@ -7,7 +7,7 @@ import { faBars, faBarsStaggered, faBuilding, faCar, faCircleInfo, faDollar, faF
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 
 const manrope = Manrope({ subsets: ['latin'] });
 
@@ -22,7 +22,13 @@ export interface MenuGroup {
     items: MenuItem[]
 };
 
-export default function Sidebar() {
+type Props = {
+    isValidUser?: boolean
+}
+
+export default function Sidebar({
+    isValidUser = false
+}: Props) {
 
     const [isMinimized, setIsMinimized] = useState(false);
 
@@ -32,7 +38,28 @@ export default function Sidebar() {
 
     const pathname = usePathname();
 
-    const menuList = [
+    // Se o usuário não estiver logado e não estiver na página de login, redireciona para o login
+    if (!isValidUser && pathname !== "/login") {
+        redirect("/login");
+    }
+
+    // Se o usuário não estiver logado e não estiver na página de login, redireciona para o login
+    if (isValidUser && pathname == "/login") {
+        redirect("/");
+    }
+
+    const menuList = !isValidUser ? [
+        {
+            group: "Geral",
+            items: [
+                {
+                    link: "/",
+                    icon: faHome,
+                    text: "Pagina Inicial"
+                }
+            ]
+        }
+    ] : [
         {
             group: "Geral",
             items: [
