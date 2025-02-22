@@ -4,6 +4,7 @@ import Password from "@/components/field/Password";
 import Text from "@/components/field/Text";
 import Column from "@/components/layout/Column";
 import Row from "@/components/layout/Row";
+import { maskCpf } from "@/lib/util/Mask";
 import { useState } from "react";
 
 export default function Page() {
@@ -29,7 +30,7 @@ export default function Page() {
             if (response.ok) {
                 const { token } = await response.json();
                 document.cookie = `token=${token}; path=/`;
-                
+
                 window.location.reload();
             } else {
                 setError("Login falhou. Verifique suas credenciais.");
@@ -41,6 +42,13 @@ export default function Page() {
         }
     }
 
+    const onInputForm: any = (event: React.FormEvent<HTMLInputElement>) => {
+        const value = (event.target as HTMLInputElement).value;
+        if ((event.target as HTMLInputElement).id === 'cpf') {
+            (event.target as HTMLInputElement).value = maskCpf(value);
+        }
+    };
+
     return (
         <div className="flex justify-center items-center">
             <form className="bg-white p-6 rounded shadow-md w-80" onSubmit={handleLogin}>
@@ -49,10 +57,12 @@ export default function Page() {
                 <Row>
                     <Column size={12}>
                         <Text
+                            id="cpf"
                             label="CPF"
                             placeholder="Cpf"
                             value={cpf}
                             onChange={(e: any) => setCPF(e.target.value)}
+                            onInput={onInputForm}
                             required
                         />
                     </Column>

@@ -8,11 +8,15 @@ import { faEraser, faFilter } from "@fortawesome/free-solid-svg-icons";
 import { ReactNode } from "react";
 
 type Props = {
+    onClickFilter?: () => void;
+    onClickClear?: () => void;
     children: ReactNode;
-    [x: string]: ReactNode;
+    [x: string]: any;
 };
 
 export default function Filter({
+    onClickFilter = () => {},
+    onClickClear = () => {},
     children,
     ...rest
 }: Props) {
@@ -25,10 +29,10 @@ export default function Filter({
                     {children}
                 </Fields>
                 <div className="flex space-x-2">
-                    <ButtonPrimary isIcon={false}>
+                    <ButtonPrimary onClick={onClickFilter} type="button" isIcon={false}>
                         <FontAwesomeIcon icon={faFilter} /> Filtrar
                     </ButtonPrimary>
-                    <ButtonSecondary isIcon={false}>
+                    <ButtonSecondary onClick={onClickClear} type="button" isIcon={false}>
                         <FontAwesomeIcon icon={faEraser} /> Limpar
                     </ButtonSecondary>
                 </div>

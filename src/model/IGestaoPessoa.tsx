@@ -85,11 +85,15 @@ export const columns: ColumnDef<IGestaoPessoa>[] = [
         header: "Nome Completo",
     },
     {
-        accessorKey: "tipo",
-        header: "Tipo",
+        accessorKey: "cpf",
+        header: "CPF",
     },
     {
-        accessorKey: "inclusao",
+        accessorKey: "rg",
+        header: "RG",
+    },
+    {
+        accessorKey: "dt_inclusao",
         header: "Inclusão",
-    }
+    },
 ];

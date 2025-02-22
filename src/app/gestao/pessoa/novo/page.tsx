@@ -19,6 +19,8 @@ import { notifySucess, notifyWarning } from "@/lib/components/Alert";
 import { useRouter } from "next/navigation";
 import { loadEstado } from "@/domain/estado/data/fetchs";
 import { loadCidade } from "@/domain/cidade/data/fetchs";
+import { maskCelular, maskCpf, maskTelefone } from "@/lib/util/Mask";
+import Loading from "@/lib/loading/Loading";
 
 export default function Page() {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -34,11 +36,11 @@ export default function Page() {
 
     useEffect(() => {
         setIsLoadingPage(true);
-    
+
         const promises = [
             loadEstado()
         ];
-    
+
         Promise.all(promises)
             .then(([estado]) => {
                 setSelect({
@@ -55,7 +57,7 @@ export default function Page() {
         const promises = [
             loadCidade(uf)
         ];
-    
+
         Promise.all(promises)
             .then(([cidade]) => {
                 setSelect({
@@ -92,6 +94,21 @@ export default function Page() {
         }
     }
 
+    const onInputForm: any = (event: React.FormEvent<HTMLInputElement>) => {
+        const value = (event.target as HTMLInputElement).value;
+        if ((event.target as HTMLInputElement).id === 'cpf') {
+            (event.target as HTMLInputElement).value = maskCpf(value);
+        } else if ((event.target as HTMLInputElement).id === 'celular') {
+            (event.target as HTMLInputElement).value = maskCelular(value);
+        } else if ((event.target as HTMLInputElement).id === 'telefone') {
+            (event.target as HTMLInputElement).value = maskTelefone(value);
+        }
+    };
+
+    if (isLoadingPage) {
+        return (<Loading />);
+    }
+
     return (<>
         <H1>Cadastrar Pessoa</H1>
 
@@ -105,9 +122,9 @@ export default function Page() {
                             label="Nome*"
                             id="nome"
                             {...register("nome", {
-                                ...createValidationRule('Nome', "required", true)
+                                ...createValidationRule('Nome', "required", true),
+                                ...createValidationRule('Nome', "maxLength", 255)
                             })}
-                            maxLength="150"
                             errors={errors}
                         />
                     </Column>
@@ -117,7 +134,7 @@ export default function Page() {
                             id="sobrenome"
                             {...register("sobrenome", {
                                 ...createValidationRule('Sobrenome', "required", true),
-                                ...createValidationRule('Naturalidade', "maxLength", 150)
+                                ...createValidationRule('Sobrenome', "maxLength", 255)
                             })}
                             errors={errors}
                         />
@@ -156,9 +173,10 @@ export default function Page() {
                             label="CPF*"
                             {...register("cpf", {
                                 ...createValidationRule('CPF', "required", true),
-                                ...createValidationRule('Naturalidade', "minLength", 14),
-                                ...createValidationRule('Naturalidade', "maxLength", 14)
+                                ...createValidationRule('CPF', "minLength", 14),
+                                ...createValidationRule('CPF', "maxLength", 14)
                             })}
+                            onInput={onInputForm}
                             errors={errors}
                         />
                     </Column>
@@ -168,7 +186,7 @@ export default function Page() {
                             label="Naturalidade*"
                             {...register("naturalidade", {
                                 ...createValidationRule('Naturalidade', "required", true),
-                                ...createValidationRule('Naturalidade', "maxLength", 100)
+                                ...createValidationRule('Naturalidade', "maxLength", 255)
                             })}
                             errors={errors}
                         />
@@ -181,7 +199,7 @@ export default function Page() {
                             label="RG*"
                             {...register("rg", {
                                 ...createValidationRule('RG', "required", true),
-                                ...createValidationRule('RG', "maxLength", 50)
+                                ...createValidationRule('RG', "maxLength", 20)
                             })}
                             errors={errors}
                         />
@@ -218,7 +236,12 @@ export default function Page() {
                     <Column>
                         <Text
                             id="telefone"
-                            label="Telefone"
+                            label="Telefone*"
+                            {...register("telefone", {
+                                ...createValidationRule('Telefone', "required", true),
+                                ...createValidationRule('Telefone', "maxLength", 255)
+                            })}
+                            onInput={onInputForm}
                             errors={errors}
                         />
                     </Column>
@@ -227,8 +250,10 @@ export default function Page() {
                             id="celular"
                             label="Celular*"
                             {...register("celular", {
-                                ...createValidationRule('Celular', "required", true)
+                                ...createValidationRule('Celular', "required", true),
+                                ...createValidationRule('Celular', "maxLength", 255)
                             })}
+                            onInput={onInputForm}
                             errors={errors}
                         />
                     </Column>
@@ -236,8 +261,9 @@ export default function Page() {
                         <Email
                             id="email"
                             label="Email*"
-                            {...register("Email", {
-                                ...createValidationRule('Email', "required", true)
+                            {...register("email", {
+                                ...createValidationRule('Email', "required", true),
+                                ...createValidationRule('Email', "maxLength", 255)
                             })}
                             errors={errors}
                         />
@@ -254,7 +280,8 @@ export default function Page() {
                             id="cep"
                             label="CEP*"
                             {...register("cep", {
-                                ...createValidationRule('CEP', "required", true)
+                                ...createValidationRule('CEP', "required", true),
+                                ...createValidationRule('CEP', "maxLength", 20)
                             })}
                             errors={errors}
                         />
@@ -267,7 +294,7 @@ export default function Page() {
                                 ...createValidationRule('UF', "required", true)
                             })}
                             data={select.estado}
-                            onChange={(e: any)=>{setUf(e.target.value);}}
+                            onChange={(e: any) => { setUf(e.target.value); }}
                             errors={errors}
                         />
                     </Column>
@@ -289,7 +316,8 @@ export default function Page() {
                             id="logradouro"
                             label="Logradouro*"
                             {...register("logradouro", {
-                                ...createValidationRule('Logradouro', "required", true)
+                                ...createValidationRule('Logradouro', "required", true),
+                                ...createValidationRule('Logradouro', "maxLength", 255)
                             })}
                             errors={errors}
                         />
@@ -299,7 +327,8 @@ export default function Page() {
                             id="bairro"
                             label="Bairro*"
                             {...register("bairro", {
-                                ...createValidationRule('Bairro', "required", true)
+                                ...createValidationRule('Bairro', "required", true),
+                                ...createValidationRule('Bairro', "maxLength", 255)
                             })}
                             errors={errors}
                         />
@@ -309,7 +338,8 @@ export default function Page() {
                             id="numero"
                             label="Número*"
                             {...register("numero", {
-                                ...createValidationRule('Número', "required", true)
+                                ...createValidationRule('Número', "required", true),
+                                ...createValidationRule('Número', "maxLength", 50)
                             })}
                             errors={errors}
                         />
@@ -321,7 +351,8 @@ export default function Page() {
                             id="complemento"
                             label="Complemento*"
                             {...register("complemento", {
-                                ...createValidationRule('Complemento', "required", true)
+                                ...createValidationRule('Complemento', "required", true),
+                                ...createValidationRule('Complemento', "maxLength", 255)
                             })}
                             errors={errors}
                         />

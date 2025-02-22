@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 type Props = {
     children: ReactNode;
     isIcon?: boolean;
-    [x: string]: ReactNode;
+    [x: string]: any;
 };
 
 export default function ButtonPrimary({ children, isIcon = false, ...rest }: Props) {
