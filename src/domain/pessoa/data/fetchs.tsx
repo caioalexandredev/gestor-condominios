@@ -19,3 +19,17 @@ export async function loadPessoaList(
 
     return resultado;
 }
+
+export async function loadPessoa(
+    id: number
+): Promise<any> {
+    const resultado = await fetch(`/api/pessoa/${id}`)
+        .then(response => response.json());
+
+    if (!resultado.data) {
+        notifyErro("Houveram erros na comunicação entre servidores.");
+        return {};
+    }
+
+    return resultado;
+}

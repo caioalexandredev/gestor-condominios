@@ -8,20 +8,22 @@ type Props = {
 
 export default async function FetchWithServer({
     action,
-    init
+    init,
+    body
 }: Props) {
     const cookie = await cookies();
-        const token = cookie.get("token")?.value;
-    
-        if (!token) {
-            return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
-        }
-    
+    const token = cookie.get("token")?.value;
+
+    if (!token) {
+        return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+    }
+
     const response = await fetch(`http://localhost:8080/api/${action}`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
-        ...init
+        ...init,
+        body: body
     });
 
     if (!response.ok) {

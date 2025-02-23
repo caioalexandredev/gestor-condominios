@@ -3,7 +3,7 @@
 import ButtonPrimary from "@/components/button/ButtonPrimary";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAdd, faEdit, faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { columns, dataTest, IGestaoPessoa, tipoSelect } from "@/model/IGestaoPessoa";
+import { columns, IGestaoPessoa, tipoSelect } from "@/model/IGestaoPessoa";
 import { useEffect, useState } from "react";
 import { IModal } from "@/model/IModal";
 import Link from "next/link";
@@ -16,7 +16,6 @@ import { DataTable } from "@/components/table/DataTable";
 import { ColumnDef } from "@tanstack/react-table";
 import Filter from "@/components/list/Filter";
 import { loadPessoaList } from "@/domain/pessoa/data/fetchs";
-import Loading from "@/lib/loading/Loading";
 import LoadingPage from "@/lib/loading/LoadingPage";
 import { notifyErro } from "@/lib/components/Alert";
 
@@ -38,10 +37,13 @@ export default function Page() {
 
     const [filters, setFilters] = useState(defaultFIlters);
 
-    const fetchDados = async (isClear: boolean = false) => {
+    const fetchDados = async (isClear: boolean = false, pageInternal: number|undefined = 1) => {
         try {
             setIsLoading(true);
-            setCurrentPage(1);
+            
+            if(pageInternal){
+                setCurrentPage(pageInternal);
+            }
 
             if (isClear) {
                 setFilters(defaultFIlters);
@@ -72,35 +74,41 @@ export default function Page() {
                 setIsLoading(false);
             });
     }, [currentPage]);
+    
 
     const columnsDataTable: ColumnDef<IGestaoPessoa>[] = [...columns, {
         id: "actions",
         header: "Ações",
         cell: ({ row }: { row: { id: string; original: IGestaoPessoa } }) => {
             return (<div className="inline-flex gap-x-2">
-                <Link href={`gestao/pessoa/${row.original.id}`}>
+                <Link href={`/gestao/pessoa/visualizar/${row.original.id}`}>
                     <ButtonSuccess isIcon={true}>
                         <FontAwesomeIcon icon={faEye} />
                     </ButtonSuccess>
                 </Link>
-                <Link href={`gestao/pessoa/edicao/${row.original.id}`}>
+                <Link href={`/gestao/pessoa/editar/${row.original.id}`}>
                     <ButtonPrimary isIcon={true}>
                         <FontAwesomeIcon icon={faEdit} />
                     </ButtonPrimary>
                 </Link>
-                <ButtonDanger onClick={open} isIcon={true}>
+                <ButtonDanger onClick={() => open(parseInt(row.original.id))} isIcon={true}>
                     <FontAwesomeIcon icon={faTrash} />
                 </ButtonDanger>
             </div >)
         }
     }];
 
-    function open(): void {
-        setStateDialogDelete((prevValues: IModal) => { return { ...prevValues, open: true }; });
+    function open(id: number): void {
+        setStateDialogDelete((prevValues: IModal) => { return { ...prevValues, open: true, id: id }; });
     }
 
     return (<>
-        <Delete state={stateDialogDelete} setState={setStateDialogDelete} />
+        <Delete 
+            action="/api/pessoa" 
+            state={stateDialogDelete} 
+            setState={setStateDialogDelete} 
+            fetchData={fetchDados}
+        />
 
         <H1>Gestão de Pessoas</H1>
 
