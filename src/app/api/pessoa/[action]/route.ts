@@ -1,12 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import FetchWithServer from "@/lib/server/FetchWithServer";
 
 export async function PUT(req: NextRequest,
-  { params }: {
-    params: {
-      action: string
-    }
-  }
+  { params }: { params: Promise<{ action: string }> }
 ) {
   const paramsUrl = await params;
 
@@ -31,11 +27,7 @@ export async function POST(req: NextRequest) {
 
 export async function GET(
   req: NextRequest,
-  { params }: {
-    params: {
-      action: string
-    }
-  }
+  { params }: { params: Promise<{ action: string }> }
 ) {
   const paramsUrl = await params;
   return FetchWithServer({
@@ -48,11 +40,7 @@ export async function GET(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: {
-    params: {
-      action: string
-    }
-  }
+  { params }: { params: Promise<{ action: string }> }
 ) {
   const paramsUrl = await params;
   return FetchWithServer({

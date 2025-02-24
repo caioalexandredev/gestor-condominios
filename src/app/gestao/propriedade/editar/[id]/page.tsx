@@ -1,6 +1,6 @@
 import FormPropriedade from "@/domain/propriedade/front/FormPropriedade";
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
     const paramsAwaited = await params;
     return (
         <FormPropriedade
