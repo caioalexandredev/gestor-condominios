@@ -101,7 +101,7 @@ export const columns: ColumnDef<IGestaoVeiculo>[] = [
         header: "Modelo",
     },
     {
-        accessorKey: "inclusao",
+        accessorKey: "dt_inclusao",
         header: "Inclusão",
     }
 ];

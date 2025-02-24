@@ -1,14 +1,14 @@
 import { notifyErro } from "@/lib/components/Alert";
 
-export async function loadPropriedadeList(
+export async function loadVeiculoList(
     filters: any  = {},
     page: number = 1
 ): Promise<any> {
-    const resultado = await fetch(`/api/propriedadeList`
+    const resultado = await fetch(`/api/veiculoList`
         + `?pagina=${page}`
-        + `&cpf=${filters?.cpf ?? ""}`
-        + `&endereco=${filters?.endereco ?? ""}`
-        + `&tipo=${filters?.tipo ?? ""}`
+        + `&categoria=${filters?.categoria ?? ""}`
+        + `&placa=${filters?.placa ?? ""}`
+        + `&modelo=${filters?.modelo ?? ""}`
         + `&nome=${filters?.nome ?? ""}`
     )
         .then(response => response.json());
@@ -21,10 +21,10 @@ export async function loadPropriedadeList(
     return resultado;
 }
 
-export async function loadPropriedade(
+export async function loadVeiculo(
     id: number
 ): Promise<any> {
-    const resultado = await fetch(`/api/propriedade/${id}`)
+    const resultado = await fetch(`/api/veiculo/${id}`)
         .then(response => response.json());
 
     if (!resultado.data) {
@@ -35,8 +35,8 @@ export async function loadPropriedade(
     return resultado;
 }
 
-export async function loadTipoSelect(){
-    const resultado = await fetch(`/api/propriedade/tipo`)
+export async function loadCorSelect(){
+    const resultado = await fetch(`/api/veiculo/cor`)
         .then(response => response.json());
     
     if(!resultado.data){
@@ -47,8 +47,20 @@ export async function loadTipoSelect(){
     return resultado.data;
 }
 
-export async function loadPropriedadeSelect(){
-    const resultado = await fetch(`/api/propriedade/select`)
+export async function loadMarcaSelect(){
+    const resultado = await fetch(`/api/veiculo/marca`)
+        .then(response => response.json());
+    
+    if(!resultado.data){
+        notifyErro("Houveram erros na comunicação entre servidores.");
+        return [];
+    }
+
+    return resultado.data;
+}
+
+export async function loadCategoriaSelect(){
+    const resultado = await fetch(`/api/veiculo/categoria`)
         .then(response => response.json());
     
     if(!resultado.data){
