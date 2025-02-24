@@ -105,7 +105,7 @@ export const columns: ColumnDef<IGestaoPropriedade>[] = [
         header: "Endereço",
     },
     {
-        accessorKey: "inclusao",
+        accessorKey: "dt_inclusao",
         header: "Inclusão",
     }
 ];

@@ -1,13 +1,14 @@
 import { notifyErro } from "@/lib/components/Alert";
 
-export async function loadPessoaList(
+export async function loadPropriedadeList(
     filters: any  = {},
     page: number = 1
 ): Promise<any> {
-    const resultado = await fetch(`/api/pessoaList`
+    const resultado = await fetch(`/api/propriedadeList`
         + `?pagina=${page}`
         + `&cpf=${filters?.cpf ?? ""}`
-        + `&rg=${filters?.rg ?? ""}`
+        + `&endereco=${filters?.endereco ?? ""}`
+        + `&tipo=${filters?.tipo ?? ""}`
         + `&nome=${filters?.nome ?? ""}`
     )
         .then(response => response.json());
@@ -20,10 +21,10 @@ export async function loadPessoaList(
     return resultado;
 }
 
-export async function loadPessoa(
+export async function loadPropriedade(
     id: number
 ): Promise<any> {
-    const resultado = await fetch(`/api/pessoa/${id}`)
+    const resultado = await fetch(`/api/propriedade/${id}`)
         .then(response => response.json());
 
     if (!resultado.data) {
@@ -34,8 +35,8 @@ export async function loadPessoa(
     return resultado;
 }
 
-export async function loadPessoaSelect(){
-    const resultado = await fetch(`/api/pessoa/select`)
+export async function loadTipoSelect(){
+    const resultado = await fetch(`/api/propriedade/tipo`)
         .then(response => response.json());
     
     if(!resultado.data){
