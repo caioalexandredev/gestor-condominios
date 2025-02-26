@@ -33,15 +33,15 @@ export default function TopMenu({
                 ]} /> */}
                 {isValidUser && (
                     <DropdownMenu>
-                        <Avatar>
+                        {/* <Avatar>
                             <AvatarImage src="https://img.freepik.com/psd-gratuitas/ilustracao-3d-de-avatar-ou-perfil-humano_23-2150671122.jpg" />
                             <AvatarFallback>CN</AvatarFallback>
-                        </Avatar>
-                        <DropdownMenuTrigger>Caio Alexandre de Sousa Ramos <FontAwesomeIcon icon={faCaretDown} /></DropdownMenuTrigger>
+                        </Avatar> */}
+                        <DropdownMenuTrigger>Caio Alexandre de Sousa Ramos {/*<FontAwesomeIcon icon={faCaretDown}> */}</DropdownMenuTrigger>
                         <DropdownMenuContent>
-                            <DropdownMenuLabel>Configurações</DropdownMenuLabel>
+                            {/* <DropdownMenuLabel>Configurações</DropdownMenuLabel>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem><FontAwesomeIcon icon={faUser} />Perfil</DropdownMenuItem>
+                            <DropdownMenuItem><FontAwesomeIcon icon={faUser} />Perfil</DropdownMenuItem> */}
                             <DropdownMenuLabel>Sistema</DropdownMenuLabel>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem onClick={handleLogout}><FontAwesomeIcon icon={faArrowRightFromBracket} />Sair</DropdownMenuItem>

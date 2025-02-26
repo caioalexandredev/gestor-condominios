@@ -98,11 +98,11 @@ export default function Sidebar({
                     icon: faHandHoldingDollar,
                     text: "Contas a Receber"
                 },
-                {
-                    link: "/financeiro/gestao",
-                    icon: faFileInvoiceDollar,
-                    text: "Gestão de Cobrança"
-                },
+                // {
+                //     link: "/financeiro/gestao",
+                //     icon: faFileInvoiceDollar,
+                //     text: "Gestão de Cobrança"
+                // },
             ]
         },
         {
@@ -118,21 +118,21 @@ export default function Sidebar({
                     icon: faTriangleExclamation,
                     text: "Livro de Ocorrências"
                 },
-                {
-                    link: "/relatorio",
-                    icon: faBarsStaggered,
-                    text: "Relatórios"
-                },
+                // {
+                //     link: "/relatorio",
+                //     icon: faBarsStaggered,
+                //     text: "Relatórios"
+                // },
                 {
                     link: "/documento",
                     icon: faFolderOpen,
                     text: "Documentos"
                 },
-                {
-                    link: "/gestao/documento",
-                    icon: faFileLines,
-                    text: "Gestão de Documento"
-                }
+                // {
+                //     link: "/gestao/documento",
+                //     icon: faFileLines,
+                //     text: "Gestão de Documento"
+                // }
             ]
         }
     ]

@@ -123,53 +123,6 @@ export default function ReceiveAccountRegistrationForm() {
                 </Card>
 
                 <Card>
-                    <H4 className="text-slate-700">Informações do Cliente</H4>
-                    <hr className="mb-3" />
-                    <Row>
-                        <Column size={6}>
-                            <Text
-                                label="Nome do Cliente*"
-                                id="cliente"
-                                {...register("cliente", {
-                                    ...createValidationRule('Nome do Cliente', "required", true)
-                                })}
-                                errors={errors}
-                            />
-                        </Column>
-                        <Column size={6}>
-                            <Text
-                                label="CNPJ/CPF*"
-                                id="cnpj_cpf"
-                                {...register("cnpj_cpf", {
-                                    ...createValidationRule('CNPJ/CPF', "required", true)
-                                })}
-                                errors={errors}
-                            />
-                        </Column>
-                    </Row>
-                    <Row>
-                        <Column size={6}>
-                            <Text
-                                label="Telefone*"
-                                id="telefone"
-                                {...register("telefone", {
-                                    ...createValidationRule('Telefone', "required", true)
-                                })}
-                                errors={errors}
-                            />
-                        </Column>
-                        <Column size={6}>
-                            <Text
-                                label="E-mail"
-                                id="email"
-                                {...register("email")}
-                                errors={errors}
-                            />
-                        </Column>
-                    </Row>
-                </Card>
-
-                <Card>
                     <H4 className="text-slate-700">Categoria e Observações</H4>
                     <hr className="mb-3" />
                     <Row>
