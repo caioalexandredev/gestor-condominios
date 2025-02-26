@@ -51,3 +51,20 @@ export function maskTelefone(value: string | null | undefined): string
 
     return `(${unmaskedValue.slice(0, 2)}) ${unmaskedValue.slice(2, 6)}-${unmaskedValue.slice(6, 10)}`;
 }
+
+export function maskReal(value: string){
+    let cleanValue = value.replace(/\D/g, '');
+    
+    if (cleanValue === '') {
+        return 'R$ 00,00';
+    }
+
+    cleanValue = cleanValue.padStart(3, '0');
+
+    const cents = cleanValue.slice(-2);
+    const reals = cleanValue.slice(0, -2);
+
+    const formattedValue = `${parseInt(reals, 10)},${cents}`;
+
+    return `R$ ${formattedValue}`;
+}

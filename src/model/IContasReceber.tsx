@@ -95,13 +95,20 @@ export const columns: ColumnDef<IContasReceber>[] = [
     {
         accessorKey: "valor",
         header: "Valor",
+        cell: ({ row }) => {
+            const valor = row.getValue<number>("valor");
+            return new Intl.NumberFormat("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+            }).format(valor);
+        },
     },
     {
-        accessorKey: "vencimento",
+        accessorKey: "dt_vencimento",
         header: "Vencimento",
     },
     {
-        accessorKey: "inclusao",
+        accessorKey: "dt_inclusao",
         header: "Inclusão",
     }
 ];

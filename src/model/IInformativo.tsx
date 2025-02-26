@@ -73,15 +73,15 @@ export const visibilidadeSelect: keyValueOption[] = [
 
 export const columns: ColumnDef<IInformativo>[] = [
     {
-        accessorKey: "titulo",
-        header: "Titulo",
+        accessorKey: "assunto",
+        header: "Assunto",
     },
     {
         accessorKey: "visibilidade",
         header: "Visibilidade",
     },
     {
-        accessorKey: "inclusao",
+        accessorKey: "dt_inclusao",
         header: "Inclusão",
     }
 ];

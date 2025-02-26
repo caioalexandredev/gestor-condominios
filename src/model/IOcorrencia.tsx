@@ -57,15 +57,15 @@ export const dataTest = [
 
 export const columns: ColumnDef<IOcorrencia>[] = [
     {
-        accessorKey: "nome",
-        header: "Solicitante",
+        accessorKey: "tipo",
+        header: "Tipo",
     },
     {
         accessorKey: "assunto",
         header: "Assunto",
     },
     {
-        accessorKey: "inclusao",
-        header: "Inclusão",
+        accessorKey: "dt_ocorrencia",
+        header: "Ocorrência",
     }
 ];

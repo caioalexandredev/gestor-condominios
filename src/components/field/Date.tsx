@@ -4,7 +4,7 @@ type Props = {
     [x: string]: any | unknown;
 };
 
-export default function Text({
+export default function Date({
     label,
     errors,
     ...rest
