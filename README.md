@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Gestor Condomínios Web
 
-## Getting Started
+![Next.js](https://img.shields.io/badge/Next.js-15-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=000000)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-3-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![Radix UI](https://img.shields.io/badge/Radix-UI-161618?style=for-the-badge&logo=radixui&logoColor=white)
 
-First, run the development server:
+Painel web do **Gestor de Condomínios**, criado para tornar a administração condominial mais simples, visual e eficiente. A interface reúne os principais fluxos da operação em um único lugar, permitindo que equipes administrativas consultem dados, cadastrem informações e acompanhem rotinas do condomínio com mais clareza.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+O frontend foi construído com Next.js, React, TypeScript e Tailwind CSS, entregando uma experiência moderna, responsiva e preparada para crescer junto com os módulos do sistema.
+
+## Destaques
+
+- Interface organizada para uso administrativo diário.
+- Telas para gestão de pessoas, propriedades, veículos, ocorrências e informativos.
+- Módulo financeiro para contas a pagar e contas a receber.
+- Integração com API PHP protegida por autenticação.
+- Componentes reutilizáveis para manter consistência visual.
+- Estrutura em domínio para facilitar manutenção e evolução do produto.
+
+## Funcionalidades
+
+- Login
+- Gestão de pessoas
+- Gestão de propriedades
+- Gestão de veículos
+- Contas a pagar
+- Contas a receber
+- Informativos
+- Ocorrências
+
+## Preview do sistema
+
+### Dashboard
+
+![Dashboard do Gestor de Condomínios](assets/01.Dashboard.png)
+
+### Gestão de Pessoas
+
+![Tela de Gestão de Pessoas](assets/02.Gest%C3%A3o%20de%20Pessoas.png)
+
+### Gestão de Propriedades
+
+![Tela de Gestão de Propriedades](assets/03.Gest%C3%A3o%20de%20Propriedades.png)
+
+## Requisitos
+
+- Node.js 20+
+- npm
+- API rodando em `http://localhost:8080`
+
+## Instalação
+
+Instale as dependências:
+
+```powershell
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Rode o servidor de desenvolvimento:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```powershell
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Acesse:
 
-## Learn More
+```text
+http://localhost:3000
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Backend/API
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+O frontend consome a API PHP em:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```text
+http://localhost:8080/api
+```
 
-## Deploy on Vercel
+Antes de usar o painel, suba o backend na pasta `gestao-condominio-api`:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```powershell
+docker compose up --build -d
+docker compose exec php composer install
+docker compose exec php vendor/bin/doctrine-migrations migrate --configuration=config/migrations.php --db-configuration=config/migrations-db.php
+docker compose exec php php src/Database/seed.php
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Usuário inicial
+
+```text
+CPF: 00000000000
+Senha: admin
+```
+
+## Scripts
+
+```powershell
+npm run dev
+npm run build
+npm run start
+npm run lint
+```
+
+## Estrutura
+
+```text
+src/
++-- app/          # Rotas, páginas e rotas internas da aplicação
++-- components/   # Componentes reutilizáveis
++-- domain/       # Camadas de domínio por módulo
++-- lib/          # Utilitários, layout, menu, helpers e server fetch
+`-- model/        # Tipagens/interfaces dos dados
+```
+
+## Observações
+
+- As rotas internas em `src/app/api` fazem ponte com a API PHP.
+- O token de login é armazenado em cookie pelo fluxo de autenticação do Next.js.
+- A API precisa estar rodando antes do frontend para as telas carregarem os dados corretamente.
